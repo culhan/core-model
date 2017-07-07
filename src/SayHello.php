@@ -1,7 +1,7 @@
 <?php 
 
 namespace CoreModel;
-
+ 
 class SayHello
 {
     public static function world()
