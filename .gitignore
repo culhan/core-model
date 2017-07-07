@@ -1,0 +1,10 @@
+src/settings.php
+vendor/*
+mysql_directory/*
+Dockerfile
+composer.json
+composer.lock
+composer.phar
+docker-compose.yml
+fqdn.conf
+index*
