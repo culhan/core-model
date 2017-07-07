@@ -1,9 +1,12 @@
-src/settings.php
-vendor/*
-mysql_directory/*
-Dockerfile
-composer.lock
-composer.phar
-docker-compose.yml
-fqdn.conf
-index*
+# IDE Files
+#-------------------------
+/nbproject/
+.idea/*
+
+## Sublime Text cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
