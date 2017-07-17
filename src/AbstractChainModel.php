@@ -8,6 +8,8 @@ use CoreModel\Traits\InsertData;
 
 class AbstractChainModel extends AbstractModel
 {
+    use InsertData;
+
     /**
      * [$chain_query description]
      * @var [type]
