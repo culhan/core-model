@@ -44,7 +44,7 @@ trait InsertData
                 $cols_by_funct = substr( $all_funct_value, strlen('setAttributes'));
                 $cols_by_funct = ModelsHelper::from_camel_case($cols_by_funct);
                 $valuesColumn[$cols_by_funct] = ':'.$cols_by_funct;
-                $valuesData[$cols_by_funct] = $this->{$all_funct_value}();
+                $valuesData[$cols_by_funct] = $this->{$all_funct_value}($valuesColumn[$cols_by_funct]);
             }
         }
         
