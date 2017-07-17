@@ -89,6 +89,9 @@ class AbstractChainModel extends AbstractModel
         $param = $this->chain_query->getParameters();
         $result = $this->chain_query->execute($param)->fetchAll();
 
+        //reuse another query
+        unset($this->chain_query);
+
         return $this->setToModelAttributes($result);
     }
 
@@ -116,6 +119,9 @@ class AbstractChainModel extends AbstractModel
         $param = $this->chain_query->getParameters();
         $result = $this->chain_query->execute($param)->fetch();
         
+        //reuse another query
+        unset($this->chain_query);
+
         $this->setToModelAttributes($result);
 
         return $this;
