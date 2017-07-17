@@ -1,6 +1,8 @@
 <?php
 namespace CoreModel\Traits;
 
+use CoreModel\Helper\ModelsHelper;
+
 trait InsertData
 {
 	/**

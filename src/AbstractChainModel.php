@@ -3,7 +3,6 @@
 namespace CoreModel;
 
 use CoreModel\AbstractModel;
-use CoreModel\Helper\ModelsHelper;
 use CoreModel\Traits\InsertData;
 
 class AbstractChainModel extends AbstractModel
