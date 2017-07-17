@@ -5,6 +5,18 @@ use CoreModel\Helper\ModelsHelper;
 
 trait InsertData
 {
+    /**
+     * [$createdAtColumn description]
+     * @var [type]
+     */
+    protected $createdAtColumn;
+
+    /**
+     * [$createdByColumn description]
+     * @var [type]
+     */
+    protected $createdByColumn;
+
 	/**
      * @param  array data input
      * @return [array] last created data
@@ -14,13 +26,9 @@ trait InsertData
         // transaction start
         $this->getConnection()->beginTransaction();
 
-        if( $this->use_timestampt )
-        {
-            // get session
-            $data['created_by'] = isset($data['created_by']) ? $data['created_by'] : $this->id_user ;
-            $data['created'] = date('Y-m-d H:i:s');
-        }
-
+        $data += $this->timeStamptCreateColumn();
+        $data += $this->userStamptCreateColumn();
+         
         $valuesColumn = [];
         $valuesData = [];
         foreach ($data as $dataKey => $dataValue) {
@@ -60,5 +68,42 @@ trait InsertData
         $this->getConnection()->commit();
 
         return $return;
+    }
+
+    /**
+     * [timestamptCreateColumn description]
+     * @return [type] [description]
+     */
+    public function timeStamptCreateColumn()
+    {
+        $data = [];
+
+        if( $this->use_timestampt )
+        {
+            $this->createdAtColumn = (!empty($this->createdAtColumn)) ? $this->createdAtColumn : 'created_by';
+
+            $data[$this->createdAtColumn] = date('Y-m-d H:i:s');
+        }
+
+        return $data;
+    }
+
+    /**
+     * [userStamptCreateColumn description]
+     * @return [type] [description]
+     */
+    public function userStamptCreateColumn()
+    {
+        $data = [];
+
+        if( $this->use_timestampt )
+        {
+            $this->createdByColumn = (!empty($this->createdByColumn)) ? $this->createdByColumn : 'created_at';
+
+            // get session
+            $data[$this->createdByColumn] = isset($data[$this->createdByColumn]) ? $data[$this->createdByColumn] : $this->id_user ;
+        }
+
+        return $data;
     }
 }
