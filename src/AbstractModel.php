@@ -127,7 +127,7 @@ class AbstractModel
         {
             global $container;
             
-            if( isset($container['jwt']) )
+            if( isset($container['db']) )
             {
                 $this->connection = $container['db'];
             }
