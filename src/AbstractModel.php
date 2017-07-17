@@ -31,30 +31,6 @@ class AbstractModel
     protected $primary_key = 'id';
 
     /**
-     * with paging
-     * @var boolean
-     */
-    protected $paging = true;
-
-    /**
-     * count default data paging
-     * @var integer
-     */
-    protected $limit_paging = 10;
-
-    /**
-     * [$searchable_column description]
-     * @var array
-     */
-    protected $searchable_column = [];
-
-    /**
-     * [$orderable_column description]
-     * @var array
-     */
-    protected $orderable_column = [];
-
-    /**
      * [$use_timestampt description]
      * @var boolean
      */

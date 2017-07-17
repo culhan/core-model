@@ -6,6 +6,12 @@ use CoreModel\Helper\ModelsHelper;
 trait InsertData
 {
     /**
+     * [$fillable_column description]
+     * @var array
+     */
+    protected $fillable_column = [];
+
+    /**
      * [$createdAtColumn description]
      * @var [type]
      */
@@ -26,9 +32,13 @@ trait InsertData
         // transaction start
         $this->getConnection()->beginTransaction();
 
+        $data += $this->checkFillableCreateColumn($data);
+
         $data += $this->timeStamptCreateColumn();
         $data += $this->userStamptCreateColumn();
-         
+
+        $this->setToModelAttributes($data);
+
         $valuesColumn = [];
         $valuesData = [];
         foreach ($data as $dataKey => $dataValue) {
@@ -44,7 +54,7 @@ trait InsertData
                 $cols_by_funct = substr( $all_funct_value, strlen('setAttributes'));
                 $cols_by_funct = ModelsHelper::from_camel_case($cols_by_funct);
                 $valuesColumn[$cols_by_funct] = ':'.$cols_by_funct;
-                $valuesData[$cols_by_funct] = $this->{$all_funct_value}($valuesColumn[$cols_by_funct]);
+                $valuesData[$cols_by_funct] = $this->{$all_funct_value}();
             }
         }
         
@@ -105,5 +115,30 @@ trait InsertData
         }
 
         return $data;
+    }
+
+    /**
+     * [checkFillableCreateColumn description]
+     * @param  string $data [description]
+     * @return [type]       [description]
+     */
+    public function checkFillableCreateColumn( $data = '' )
+    {
+        $dataResult = [];
+        if( !empty($this->fillable_column) )
+        {
+            foreach ($this->fillable_column as $fillable_column_key => $fillable_column_value) {
+                if( isset($data[$fillable_column_value]) )
+                {
+                    $dataResult[$fillable_column_value] = $data[$fillable_column_value];                     
+                }
+            }
+        }
+        else
+        {
+            $dataResult = $data;
+        }
+
+        return $dataResult;
     }
 }
